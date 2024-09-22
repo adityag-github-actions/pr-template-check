@@ -1,3 +1,3 @@
 # pr-template-check
 
-testing empty-pr
+testing pr1
