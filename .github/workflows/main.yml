@@ -1,0 +1,22 @@
+name: PR Template Check
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  check_template:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Check PR Template
+      run: |
+        PR_BODY=$(cat $GITHUB_EVENT_PATH | jq -r &#39;.pull_request.body&#39;)
+        if [[ -z &quot;$PR_BODY&quot; || &quot;$PR_BODY&quot; == *&quot;Description&quot;* ]]; then
+          echo &quot;PR template is not filled. Please fill it.&quot;
+          exit 1
+        else
+          echo &quot;PR template is filled correctly.&quot;
+        fi
